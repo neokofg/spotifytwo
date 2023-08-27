@@ -21,7 +21,7 @@ class SpotifyController extends Controller
 
     public function search(Request $request)
     {
-        $query = "?q=". $request['query'] ."&type=track&limit=1";
+        $query = "?q=". $request['query'] ."&type=track&limit=5";
         $response = Http::withHeader("Authorization", "Bearer " . $request['token'])
             ->get("https://api.spotify.com/v1/search" . $query);
         return $response->json();
