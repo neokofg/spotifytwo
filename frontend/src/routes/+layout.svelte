@@ -28,7 +28,7 @@
     let query = '';
     async function handleSubmit() {
         const token = localStorage.getItem('token');
-        const response = await fetch('http://localhost:8000/api/search', {
+        const response = await fetch(import.meta.env.VITE_API_HOST + 'api/search', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
