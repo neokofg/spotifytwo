@@ -11,7 +11,7 @@
     import {onMount} from "svelte";
     let timeout;
     onMount(async () => {
-        const response = await fetch('http://localhost:8000/api/token', { method: 'POST' });
+        const response = await fetch(import.meta.env.VITE_API_HOST + 'api/token', { method: 'POST' });
         const data = await response.json();
         const token = data.access_token;
         localStorage.setItem('token', token);
@@ -47,7 +47,7 @@
     });
 </script>
 
-<body class="">
+<body>
 <div class="container mx-auto mt-10">
     <input
         bind:value={query}
