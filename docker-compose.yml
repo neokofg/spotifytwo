@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  php:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    volumes:
+      - ./php/php.ini:/usr/local/etc/php/php.ini
+      - .:/workspace/backend
+    restart: on-failure:5
+  nginx:
+    depends_on:
+      -  php
+    image: nginx:latest
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+      - .:/workspace
+      - ../booky-widget/build:/widget
+    restart: on-failure:5
+  sveltejs:
+    container_name: sveltejs
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "5173:5173"
+    volumes:
+      - .:/workspace/app
