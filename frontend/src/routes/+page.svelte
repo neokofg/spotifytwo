@@ -23,7 +23,7 @@
         const response = await fetch('https://spotify-scraper.p.rapidapi.com/v1/track/download?track=' + track + '&candidate=1', {
             method: 'GET',
             headers: {
-                'X-RapidAPI-Key': 'a5e57f7576msh4ec99a648ae4708p1960cajsnf17ea176f616',
+                'X-RapidAPI-Key': '25be499638msh5d4fa83dd76c096p1bd702jsn6d6be70b2a6a',
                 'X-RapidAPI-Host': 'spotify-scraper.p.rapidapi.com'
             }
         });
