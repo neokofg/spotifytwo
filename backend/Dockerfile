@@ -6,5 +6,5 @@ RUN apt-get update && apt-get install -y \
       pcntl
 RUN apt-get install -y gcc g++ autoconf
 RUN pecl install swoole && docker-php-ext-enable swoole
-WORKDIR /backend
+WORKDIR /server
 CMD ["php", "artisan", "octane:start", "--host=0.0.0.0"]
