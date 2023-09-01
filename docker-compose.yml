@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./backend/php/php.ini:/usr/local/etc/php/php.ini
-      - .:/workspace
+      - .:/workspace/backend
     restart: on-failure:5
   nginx:
     depends_on:
@@ -19,7 +19,6 @@ services:
     volumes:
       - ./nginx:/etc/nginx/conf.d
       - .:/workspace
-      - ../booky-widget/build:/widget
     restart: on-failure:5
   sveltejs:
     container_name: sveltejs
