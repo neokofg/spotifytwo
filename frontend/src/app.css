@@ -1,3 +1,55 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+    --tw-bg-opacity: 1;
+    background-color: rgb(24 24 27 / var(--tw-bg-opacity));
+    color: white;
+}
+
+.zoom {
+    animation: zoom .3s;
+}
+
+@keyframes zoom {
+    0% {transform: scale(1)}
+    50% {transform: scale(0.8)}
+    100% {transform: scale(1)}
+}
+
+audio::-webkit-media-controls-panel {
+    background-color: #18181b;
+    border: 1px solid #18181b;
+    border-radius: 0px;
+}
+audio::-webkit-media-controls-mute-button {
+    background-color: #1a202c;
+    border-radius: 50%;
+}
+audio::-webkit-media-controls-play-button {
+    background-color: #1a202c;
+    border-radius: 50%;
+}
+audio::-webkit-media-controls-current-time-display {
+    color: #fff;
+}
+audio::-webkit-media-controls-time-remaining-display {
+    color: #fff;
+}
+audio::-webkit-media-controls-timeline {
+    background-color: #1a202c;
+    border-radius: 25px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+audio::-webkit-media-controls-volume-slider {
+    background-color: #1a202c;
+    border-radius: 25px;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+audio {
+    color: #1a202c;
+    background-color: #18181b;
+}

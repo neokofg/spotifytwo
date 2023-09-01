@@ -10,9 +10,16 @@
             loading = false;
         }
     });
-
-    async function playPreview(spotify_url) {
-        const track = spotify_url
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms))
+    }
+    async function playPreview(item, element) {
+        let svg = document.getElementById(item.id);
+        svg.src = 'loading.gif';
+        element.classList.add('zoom');
+        await sleep(500);
+        element.classList.remove('zoom');
+        const track = item.external_urls.spotify;
         const response = await fetch('https://spotify-scraper.p.rapidapi.com/v1/track/download?track=' + track + '&candidate=1', {
             method: 'GET',
             headers: {
@@ -21,23 +28,34 @@
             }
         });
         const url = await response.json();
-        console.log(url);
+        svg.src = 'play.svg';
         previewUrl.set(url.youtubeVideo.audio[0].url);
     }
 </script>
 
 {#if !loading}
-    <div class="cards mt-20">
+    <div class="grid grid-cols-1 md:grid-cols-5 sm:grid-cols-3  gap-3">
         {#each items as item}
-            <div on:click={() => playPreview(item.external_urls.spotify)} class="border-[1px] rounded border-black w-[120px] mt-2">
-                <h3>{item.name}</h3>
-                <p>{item.artists[0].name}</p>
-                <!-- other item properties -->
+            <div class="border-[2px] border-sky-900 bg-gray-900 w-full h-full rounded border-black mt-2">
+                <div on:click={() => playPreview(item, event.currentTarget)} class="relative hover:opacity-40 transition-all hover:color-white">
+                    <img width="60px" height="60px" class="absolute" id={item.id} style="top: calc(50% - 30px); left: calc(50% - 30px)" src={'play.svg'} alt="play">
+                    <img src="{item.album.images[0].url}" alt="{item.name}">
+                </div>
+                <div class="ml-2 mt-2">
+                    <h3 class="text-[20px] font-bold hover:opacity-40 transition-all">{item.name}</h3>
+                    <p><span class="text-slate-500">Популярность: </span> {item.popularity}</p>
+                    <p><span class="text-slate-500">Длительность: </span>{Math.floor(item.duration_ms / 60000)} минуты</p>
+                    <p><span class="text-slate-500">Автор: </span> {item.artists[0].name}</p>
+                    <p><span class="text-slate-500">Релиз: </span> {item.album.release_date}</p>
+                </div>
             </div>
         {/each}
     </div>
 {/if}
 {#if loading}
     <!-- Show loader while loading -->
-    <p>Loading...</p>
+    <p>Пишите</p>
 {/if}
+<div class="w-full h-[100px]">
+
+</div>

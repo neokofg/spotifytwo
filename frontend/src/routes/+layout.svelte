@@ -9,7 +9,7 @@
     import {previewUrl, promise} from '../scripts/store.js';
     import "../app.css";
     import {onMount} from "svelte";
-
+    let timeout;
     onMount(async () => {
         const response = await fetch('http://localhost:8000/api/token', { method: 'POST' });
         const data = await response.json();
@@ -17,6 +17,12 @@
         localStorage.setItem('token', token);
         let audio = document.getElementById("player");
         audio.volume = 0.2;
+        document.addEventListener('input', () => {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => {
+                handleSubmit();
+            }, 300);
+        });
     });
 
     let query = '';
@@ -41,14 +47,23 @@
     });
 </script>
 
-<body>
-<div class="container mx-auto">
-    <form on:submit={handleSubmit}>
-        <input class="rounded border-[1px] border-black" bind:value={query} required type="text" placeholder="search">
-        <button type="submit">Search</button>
-    </form>
+<body class="">
+<div class="container mx-auto mt-10">
+    <input
+        bind:value={query}
+       on:input={() => {}}
+       class="pl-3 text-white rounded border-[2px] w-[80%] sm:w-[50%] md:w-[30%] h-10 border-sky-900 bg-gray-900 hover:bg-gray-600"
+        placeholder="Поиск трека"
+       required
+       type="text"
+    >
+</div>
+<div class="w-full h-[1px] bg-black mt-10"></div>
+<div class="container mx-auto mt-10">
     <slot />
 </div>
-<audio class="w-full absolute bottom-0" id="player" controls src={preview_url} type="audio/x-m4a">
-</audio>
+<div class="container mx-auto">
+    <audio loop autoplay class="container mx-auto w-full fixed bottom-0" id="player" controls src={preview_url} type="audio/x-m4a">
+    </audio>
+</div>
 </body>
