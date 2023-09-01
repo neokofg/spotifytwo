@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./php/php.ini:/usr/local/etc/php/php.ini
-      - .:/workspace/backend
+      - .:/workspace/laravel
     restart: on-failure:5
   nginx:
     depends_on:
