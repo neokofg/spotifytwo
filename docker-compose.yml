@@ -6,8 +6,8 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     volumes:
-      - ./php/php.ini:/usr/local/etc/php/php.ini
-      - .:/workspace/laravel
+      - ./backend/php/php.ini:/usr/local/etc/php/php.ini
+      - .:/workspace
     restart: on-failure:5
   nginx:
     depends_on:
@@ -27,6 +27,6 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
     ports:
-      - "5173:5173"
+      - "4173:4173"
     volumes:
       - .:/workspace/app
